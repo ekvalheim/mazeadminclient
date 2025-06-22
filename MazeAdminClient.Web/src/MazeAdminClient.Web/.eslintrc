@@ -1,0 +1,9 @@
+﻿{
+  "parser": "babel-eslint",
+  "env": {
+    "mocha": true
+  },
+  "rules": {
+    "no-nested-ternary": 0
+  }
+}
