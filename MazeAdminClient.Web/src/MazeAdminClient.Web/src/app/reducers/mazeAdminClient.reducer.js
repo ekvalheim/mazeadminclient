@@ -67,6 +67,7 @@ const mazeAdminClient = (state = {
   isLoading: true,
   adminMode: false,
   playMode: 'Practice',
+  notifyPlayer: false,
   gameId: '___',
   clientId: '',
   online: false,
@@ -102,6 +103,11 @@ const mazeAdminClient = (state = {
       return {
         ...state,
         playMode: action.mode,
+      };
+    case 'SET-NOTIFY-PLAYER':
+      return {
+        ...state,
+        notifyPlayer: true,
       };
     case 'DISCONNECTED':
       return {

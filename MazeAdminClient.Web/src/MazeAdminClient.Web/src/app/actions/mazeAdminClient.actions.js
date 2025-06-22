@@ -19,10 +19,11 @@ export const removePlayer = (clientId) => ({
   clientId,
 });
 
-export const connect = (gameId, mode) => ({
+export const connect = (gameId, mode, notifyPlayer) => ({
   type: 'CONNECT',
   gameId,
   mode,
+  notifyPlayer,
 });
 
 export const setAdminMode = () => ({
@@ -34,9 +35,13 @@ export const setPlayMode = (mode) => ({
   mode,
 });
 
+export const setNotifyPlayer = () => ({
+  type: 'SET-NOTIFY-PLAYER',
+});
+
 export function connectSocket() {
   return function (dispatch, getState) {
-    dispatch(connect(getState().mazeAdminClient.gameId, getState().mazeAdminClient.playMode));
+    dispatch(connect(getState().mazeAdminClient.gameId, getState().mazeAdminClient.playMode, getState().mazeAdminClient.notifyPlayer));
   }
 }
 

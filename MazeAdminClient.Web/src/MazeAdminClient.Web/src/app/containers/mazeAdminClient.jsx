@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { connectSocket, newGame, resetServer, kickPlayer, resetPlayer, forceStopLevel, nextLevel, previousLevel, setAdminMode, setPlayMode } from '../actions/mazeAdminClient.actions';
+import { connectSocket, newGame, resetServer, kickPlayer, resetPlayer, forceStopLevel, nextLevel, previousLevel, setAdminMode, setPlayMode, setNotifyPlayer } from '../actions/mazeAdminClient.actions';
 import Robot0 from '../images/Robot0.svg';
 import Robot1 from '../images/Robot1.svg';
 import Robot2 from '../images/Robot2.svg';
@@ -19,6 +19,9 @@ class MazeAdminClient extends React.Component {
     }
     if (this.props.location.query.mode == 'play') {
       this.props.setPlayModeReceived('Play');
+    }
+    if (this.props.location.query.notifyPlayer == 'true') {
+      this.props.setNotifyPlayerReceived();
     }
     this.props.connectAdmin();
   }
@@ -124,6 +127,7 @@ const mapDispatchToProps = (dispatch) => ({
   previousLevelClicked: (gameId) => dispatch(previousLevel(gameId)),
   setAdminModeReceived: () => dispatch(setAdminMode()),
   setPlayModeReceived: (mode) => dispatch(setPlayMode(mode)),
+  setNotifyPlayerReceived: () => dispatch(setNotifyPlayer()),
 });
 
 
@@ -156,5 +160,6 @@ MazeAdminClient.propTypes = {
   clientId: React.PropTypes.string,
   setAdminModeReceived: React.PropTypes.func,
   setPlayModeReceived: React.PropTypes.func,
+  setNotifyPlayerReceived: React.PropTypes.func,
   adminMode: React.PropTypes.bool,
 };

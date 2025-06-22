@@ -50,14 +50,10 @@ const socketMiddleware = (() => {
         if (socket !== null) {
           socket.close();
         }
-        // socket = new WebSocket('wss://mazeserver20250222183219.azurewebsites.net/api/Maze/MazePlayer?username=admin&clientId=345gte&gameId='+action.gameId+'&isAdmin=true&mode='+action.mode);
-        socket = new WebSocket('ws://localhost:50990/api/Maze/MazePlayer?username=admin&clientId=345gte&gameId=' + action.gameId + '&isAdmin=true&mode=' + action.mode);
+        socket = new WebSocket('wss://mazeserverwebapp-apd7asc7aqcdasbv.norwayeast-01.azurewebsites.net/api/Maze/MazePlayer?username=admin&clientId=345gte&gameId=' + action.gameId + '&isAdmin=true&mode=' + action.mode + '&notifyPlayer=' + action.notifyPlayer);
+        console.log(action);
+        // socket = new WebSocket('ws://localhost:50990/api/Maze/MazePlayer?username=admin&clientId=345gte&gameId=' + action.gameId + '&isAdmin=true&mode=' + action.mode + '&notifyPlayer=' + action.notifyPlayer);
 
-        //gamle verdier
-        // socket = new WebSocket('wss:/mazeserver20200918090901.azurewebsites.net/api/Maze/MazePlayer?username=admin&gameId='+action.gameId+'&isAdmin=true&mode=Play');
-        //socket = new WebSocket('ws://localhost:50990/api/Maze/MazePlayer?username=admin&gameId='+action.gameId+'&isAdmin=true');
-        // socket = new WebSocket('ws://mazeserver.azurewebsites.net/api/Maze/MazePlayer?username=admin&clientId=345gte&gameId='+action.gameId+'&isAdmin=true&mode='+action.mode);
-        // socket = new WebSocket('ws://sonatmazeserver.azurewebsites.net/api/Maze/MazePlayer?username=admin&clientId=345gte&gameId='+action.gameId+'&isAdmin=true&mode='+action.mode);
         socket.onmessage = onMessage(socket, store);
         socket.onclose = onClose(socket, store);
         socket.onopen = onOpen(socket, store, action.token);
