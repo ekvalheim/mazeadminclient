@@ -1,29 +1,20 @@
 # README #
 
-This README would normally document whatever steps are necessary to get your application up and running.
+### Hosting ###
 
-### What is this repository for? ###
+* Kjører som Static Web App i Azure (https://portal.azure.com/#@sonatconsulting.onmicrosoft.com/resource/subscriptions/8db703d9-3a2c-49a9-9f7f-48fb8aa55aed/resourceGroups/fagdag-maze-bergen/overview)
+* https://icy-coast-07e70d403.6.azurestaticapps.net/
 
-* Quick summary
-* Version
-* [Learn Markdown](https://bitbucket.org/tutorials/markdowndemo)
+### Deploy ###
+For hver push til main, kjøres github action som deployer til Static Web App
+* Secret angir token til Static Web App (https://github.com/ekvalheim/mazeadminclient/settings/secrets/actions)
+* Bygg prod dist (npm run build-prod)
 
-### How do I get set up? ###
+### Manual ###
+* Kjører i dag her: https://icy-coast-07e70d403.6.azurestaticapps.net/
+* For å kjøre Konkurranse (mode=play&isAmin=true):
+  * https://icy-coast-07e70d403.6.azurestaticapps.net/?mode=play&isAdmin=true
+* For å bedre ytelse når vi kjører kontroller mode, har vi fjernet notifikasjon til spillere for hvert flytt.
+* For å sende notifikasjon til spiller for hvert flytt for å spille robot mode (notifyPlayer=true):
+* https://icy-coast-07e70d403.6.azurestaticapps.net/?mode=play&isAdmin=true&notifyPlayer=true
 
-* Summary of set up
-* Configuration
-* Dependencies
-* Database configuration
-* How to run tests
-* Deployment instructions
-
-### Contribution guidelines ###
-
-* Writing tests
-* Code review
-* Other guidelines
-
-### Who do I talk to? ###
-
-* Repo owner or admin
-* Other community or team contact
