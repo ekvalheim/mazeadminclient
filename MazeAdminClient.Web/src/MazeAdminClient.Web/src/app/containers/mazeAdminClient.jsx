@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { connectSocket, newGame, resetServer, kickPlayer, resetPlayer, forceStopLevel, nextLevel, previousLevel, setAdminMode, setPlayMode, setNotifyPlayer } from '../actions/mazeAdminClient.actions';
+import { connectSocket, newGame, resetServer, kickPlayer, setHandicap, resetPlayer, forceStopLevel, nextLevel, previousLevel, setAdminMode, setPlayMode, setNotifyPlayer } from '../actions/mazeAdminClient.actions';
 import Robot0 from '../images/Robot0.svg';
 import Robot1 from '../images/Robot1.svg';
 import Robot2 from '../images/Robot2.svg';
@@ -13,6 +13,13 @@ import Robot8 from '../images/Robot8.svg';
 import GoodJob from '../images/good.png';
 
 class MazeAdminClient extends React.Component {
+
+  // Handler to update handicap input for a specific player
+  handleHandicapChange(clientId, value) {
+    const { gameId, setHandicapClicked } = this.props;
+    setHandicapClicked(clientId, gameId, value);
+  };
+
   componentDidMount() {
     if (this.props.location.query.isAdmin == 'true') {
       this.props.setAdminModeReceived();
@@ -58,7 +65,18 @@ class MazeAdminClient extends React.Component {
         <header className={online ? "online" : "offline"}>
           <div className="center">Game Id: {gameId} - Level: {gameLevel}</div>
           {players.map((player, index) =>
-            <div key={player.clientId} className="player" style={{ backgroundColor: colors[player.playerIndex] }}><div className="left">{player.username}</div><div className="right"><span className="playerAdmin" onClick={() => resetPlayerClicked(player.clientId, gameId)}>&#8617;</span><span className="playerAdmin" onClick={() => kickPlayerClicked(player.clientId, gameId)}>&#10006;</span></div></div>
+            <div key={player.clientId} className="player" style={{ backgroundColor: colors[player.playerIndex] }}>
+              <div className="left">{player.username}</div>
+              <div className="right">
+                <input
+                  className='handicapInput'
+                  type="text"
+                  onBlur={(e) => this.handleHandicapChange(player.clientId, e.target.value)}
+                />
+                <span title="Return to start" className="playerAdmin" onClick={() => resetPlayerClicked(player.clientId, gameId)}>&#8617;</span>
+                <span title="Kick player" className="playerAdmin" onClick={() => kickPlayerClicked(player.clientId, gameId)}>&#10006;</span>
+              </div>
+            </div>
           )}
           <br />
         </header>
@@ -122,6 +140,7 @@ const mapDispatchToProps = (dispatch) => ({
   newGameClicked: (gameId, clientId, level) => dispatch(newGame(gameId, clientId, level)),
   kickPlayerClicked: (playerId, gameId) => dispatch(kickPlayer(playerId, gameId)),
   resetPlayerClicked: (playerId, gameId) => dispatch(resetPlayer(playerId, gameId)),
+  setHandicapClicked: (clientId, gameId, handicap) => dispatch(setHandicap(clientId, gameId, handicap)),
   forceStopLevelClicked: (gameId) => dispatch(forceStopLevel(gameId)),
   nextLevelClicked: (gameId) => dispatch(nextLevel(gameId)),
   previousLevelClicked: (gameId) => dispatch(previousLevel(gameId)),
@@ -153,6 +172,7 @@ MazeAdminClient.propTypes = {
   canvasWidth: React.PropTypes.number,
   kickPlayerClicked: React.PropTypes.func,
   resetPlayerClicked: React.PropTypes.func,
+  setHandicapClicked: React.PropTypes.func,
   gameId: React.PropTypes.string,
   isRunning: React.PropTypes.bool,
   gameStarted: React.PropTypes.bool,

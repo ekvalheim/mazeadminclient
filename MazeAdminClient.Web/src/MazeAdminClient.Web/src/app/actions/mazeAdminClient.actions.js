@@ -70,6 +70,13 @@ export const kickPlayer = (playerId, gameId) => ({
   gameId,
 });
 
+export const setHandicap = (playerId, gameId, seconds) => ({
+  type: 'SET-HANDICAP',
+  playerId,
+  gameId,
+  seconds,
+});
+
 export const resetPlayer = (playerId, gameId) => ({
   type: 'RESET-PLAYER',
   playerId,

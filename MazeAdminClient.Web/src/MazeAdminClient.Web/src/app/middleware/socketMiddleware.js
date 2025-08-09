@@ -73,6 +73,9 @@ const socketMiddleware = (() => {
       case 'KICK-PLAYER':
         socket.send(JSON.stringify({ Action: 'KickPlayer', ClientId: action.playerId, GameId: action.gameId }));
         break;
+      case 'SET-HANDICAP':
+        socket.send(JSON.stringify({ Action: 'SetHandicap', ClientId: action.playerId, GameId: action.gameId, Seconds: action.seconds }));
+        break;
       case 'RESET-PLAYER':
         socket.send(JSON.stringify({ Action: 'ResetPlayer', ClientId: action.playerId, GameId: action.gameId }));
         break;
