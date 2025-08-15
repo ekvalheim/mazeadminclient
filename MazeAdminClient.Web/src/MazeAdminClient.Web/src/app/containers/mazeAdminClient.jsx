@@ -67,15 +67,17 @@ class MazeAdminClient extends React.Component {
           {players.map((player, index) =>
             <div key={player.clientId} className="player" style={{ backgroundColor: colors[player.playerIndex] }}>
               <div className="left">{player.username}</div>
-              <div className="right">
-                <input
-                  className='handicapInput'
-                  type="text"
-                  onBlur={(e) => this.handleHandicapChange(player.clientId, e.target.value)}
-                />
-                <span title="Return to start" className="playerAdmin" onClick={() => resetPlayerClicked(player.clientId, gameId)}>&#8617;</span>
-                <span title="Kick player" className="playerAdmin" onClick={() => kickPlayerClicked(player.clientId, gameId)}>&#10006;</span>
-              </div>
+              {adminMode && (
+                <div className="right">
+                  <input
+                    className='handicapInput'
+                    type="text"
+                    onBlur={(e) => this.handleHandicapChange(player.clientId, e.target.value)}
+                  />
+                  <span title="Return to start" className="playerAdmin" onClick={() => resetPlayerClicked(player.clientId, gameId)}>&#8617;</span>
+                  <span title="Kick player" className="playerAdmin" onClick={() => kickPlayerClicked(player.clientId, gameId)}>&#10006;</span>
+                </div>
+              )}
             </div>
           )}
           <br />

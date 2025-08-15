@@ -51,7 +51,6 @@ const socketMiddleware = (() => {
           socket.close();
         }
         socket = new WebSocket('wss://mazeserverwebapp-apd7asc7aqcdasbv.norwayeast-01.azurewebsites.net/api/Maze/MazePlayer?username=admin&clientId=345gte&gameId=' + action.gameId + '&isAdmin=true&mode=' + action.mode + '&notifyPlayer=' + action.notifyPlayer);
-        console.log(action);
         // socket = new WebSocket('ws://localhost:50990/api/Maze/MazePlayer?username=admin&clientId=345gte&gameId=' + action.gameId + '&isAdmin=true&mode=' + action.mode + '&notifyPlayer=' + action.notifyPlayer);
 
         socket.onmessage = onMessage(socket, store);

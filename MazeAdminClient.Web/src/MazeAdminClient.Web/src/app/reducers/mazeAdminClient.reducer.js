@@ -23,6 +23,8 @@ const player = (state = {
           ...state,
           top: action.PY,
           left: action.PX,
+          width: action.SZ,
+          height: action.SZ,
         };
       }
       return state;
@@ -152,18 +154,18 @@ const mazeAdminClient = (state = {
       };
     case 'UPDATE-ALL-PLAYERS-POSITION': {
       const updatedPlayersMap = new Map(action.players.map(t => [t.ClientId, t]));
-
       return {
         ...state,
         players: state.players.map(p => {
           const updatedPlayer = updatedPlayersMap.get(p.clientId);
-          if (!updatedPlayer || (p.PX === updatedPlayer.PX && p.PY === updatedPlayer.PY)) {
+          if (!updatedPlayer || (p.left === updatedPlayer.PX && p.top === updatedPlayer.PY && p.width === updatedPlayer.SZ)) {
             return p; // No changes, return original reference
           }
           return player(p, {
             type: 'UPDATE-PLAYER-POSITION',
             PX: updatedPlayer.PX,
             PY: updatedPlayer.PY,
+            SZ: updatedPlayer.SZ,
             clientId: p.clientId
           });
         })
